@@ -1,0 +1,31 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/html">
+  <head>
+
+    {# Required by Bootstrap. #}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {# Required by Bootstrap. #}
+
+    <!-- Modules. -->
+    <script src="/res/packages/system.js"></script>
+
+    <!-- Project config. -->
+    <script src="/res/config.js"></script>
+
+    <!-- App. -->
+    <script type="application/javascript">
+      System.import('app/test/bootstrap.js');
+    </script>
+
+  </head>
+  <body>
+
+    <!-- App container. -->
+    <div id="app-root">
+      <section ui-view></section>
+    </div>
+
+  </body>
+</html>

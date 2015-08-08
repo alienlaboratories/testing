@@ -1,0 +1,16 @@
+#
+# http://git-scm.com/docs/gitignore
+#
+
+.DS_Store
+.classpath
+
+out/
+logs/
+node_modules/
+target/
+tools/
+
+*.pyc
+*.log
+
