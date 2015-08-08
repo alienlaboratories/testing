@@ -10,7 +10,7 @@ System.config({
 
 System.config({
   "map": {
-    "nx": "/res/nx/nx",
+    "nx": "/res/nx",
     "angular": "github:angular/bower-angular@1.4.3",
     "angular-bootstrap": "github:angular-ui/bootstrap-bower@0.13.2",
     "angular-ui-router": "github:angular-ui/ui-router@0.2.15",

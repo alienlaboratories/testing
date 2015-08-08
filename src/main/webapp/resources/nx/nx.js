@@ -39,15 +39,15 @@ export class NX {
   static queryParams() {
     var params = {};
     var search = window.decodeURIComponent(window.location.search);
-    var parts = search.substring(1).split('&');
-    for (let p of parts) {
-      var expr = p.split('=');
-      var key = expr[0];
+    var pairs = search.substring(1).split('&');
+    for (let pair of pairs) {
+      var parts = pair.split('=');
+      var key = parts[0];
       var value;
-      if (expr.length == 1) {
+      if (parts.length == 1) {
         value = true;
       } else {
-        value = NX.parseValue(window.decodeURIComponent(expr[1]));
+        value = NX.parseValue(window.decodeURIComponent(parts[1]));
       }
       params[key] = value;
     }
