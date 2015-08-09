@@ -4,13 +4,19 @@
 
 'use strict';
 
+import './css/main.css!';
+
 import angular from 'angular';
 import 'angular-ui-router';
+import 'angular-bootstrap';
 
 import { app_route_main } from './route/main/controller';
 
+var ROOT = '/res/app/test';
+
 export var module = angular.module('app.main', [
   'ui.router',
+  'ui.bootstrap',
   app_route_main.name
 ])
 
@@ -23,7 +29,7 @@ export var module = angular.module('app.main', [
       $stateProvider
         .state('main', {
           url: '/main',
-          templateUrl: '/res/app/test/route/main/template.html',
+          templateUrl: ROOT + '/route/main/template.html',
           controller: 'MainViewController'
         });
     }

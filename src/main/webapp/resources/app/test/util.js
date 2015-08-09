@@ -15,15 +15,18 @@ export class Test extends HasListeners {
     super();
   }
 
-  listen() {
-    this.listener = super.addListener(this.fire.bind(this));
-    return this;
+  listen(active=true) {
+    if (active) {
+      if (!this.handle) {
+        this.handle = super.addListener(this.fire.bind(this));
+      }
+    } else if (this.handle) {
+      this.handle();
+    }
   }
 
   fire(value) {
     console.log(`Callback: ${value}`);
-    super.removeListener(this.listener);
-    super.fireListeners(200);
   }
 
 }

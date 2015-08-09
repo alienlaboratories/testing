@@ -19,7 +19,9 @@ export class HasListeners {
   addListener(listener) {
     console.assert(listener);
     this.listeners.push(listener);
-    return listener;
+    return function() {
+      this.removeListener(listener);
+    };
   }
 
   removeListener(listener) {
