@@ -1,3 +1,9 @@
+
+-e sub/util/src/main/python
+
+nose
+
 Flask
 Flask-Injector
 Flask-Markdown
+

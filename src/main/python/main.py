@@ -7,19 +7,17 @@ import logging
 from flask.ext.injector import FlaskInjector
 from flask.ext.markdown import Markdown
 
-from systemjs import SystemJSResolver
+from nx_util.systemjs import SystemJSResolver
 
 LOG = logging.getLogger()
 
 
 class Main(flask.Flask):
 
-    STATIC_FOLDER = '../webapp/resources'
     STATIC_PATH = '/res'
 
-    """
-    Main Flask app.
-    """
+    STATIC_FOLDER = '../webapp/resources'
+
     def __init__(self):
         super(Main, self).__init__(
             __name__,
@@ -28,16 +26,7 @@ class Main(flask.Flask):
             template_folder='templates')
 
         #
-        # Home.
-        #
-        @self.route('/')
-        def home():
-            return flask.render_template('home.html')
-
-        #
-        # Resources
-        # JSPM resource loader (e.g., '/package:bootstrap/css/bootstrap.css')
-        # TODO(burdon): Don't locate packages under resources?
+        # JSPM Resources.
         #
         systemjs = SystemJSResolver.create(self, static_folder=Main.STATIC_FOLDER, static_path=Main.STATIC_PATH)
 
@@ -58,6 +47,16 @@ class Main(flask.Flask):
         def docs(filename):
             return flask.render_template('docs/' + filename + '.md')
 
+        #
+        # Home.
+        #
+        @self.route('/')
+        def home():
+            return flask.render_template('home.html')
+
+        #
+        # Injector.
+        #
         FlaskInjector(app=self, modules=[])
 
 if __name__ == '__main__':
