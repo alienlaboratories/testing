@@ -1,0 +1,22 @@
+<h2>Users</h2>
+
+<div>
+  <button type="button" class="btn btn-default" ng-click="update()">Update</button>
+</div>
+
+<hr/>
+
+<div>
+  <table ng-show="result.item">
+    <thead>
+    <tr>
+      <th>User</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="item in result.item">
+        <td>{{ item.title }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

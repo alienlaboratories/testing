@@ -4,40 +4,43 @@
 
 'use strict';
 
-import './css/main.css!';
-
 import angular from 'angular';
 import 'angular-ui-router';
 
-import './route/main/controller';
+import './css/main.css!';
 
-var TEMPLATES = '/res/app/test/templates';
+import './config';
+import './route/home';
 
+// Main module (exported to bootstrap).
 export var module = angular.module('app.main', [
   'ui.router',
-  'app.route.main'
-])
+  'app.config',
+  'app.route.home'
+]);
 
-  .config([ '$urlRouterProvider', '$stateProvider',
-    function($urlRouterProvider,   $stateProvider) {
+module
+  .config([
+    '$urlRouterProvider',
+    '$stateProvider',
+    'TEMPLATES',
+    function($urlRouterProvider, $stateProvider, TEMPLATES) {
 
-      // Default path.
-      $urlRouterProvider
-        .otherwise('/main/config');
-
+      // https://github.com/angular-ui/ui-router/wiki
       // http://odetocode.com/blogs/scott/archive/2014/04/14/deep-linking-a-tabbed-ui-with-angularjs.aspx
       $stateProvider
-        .state('main', {
-          url: '/main',
-          templateUrl: TEMPLATES + '/route/main/index.html',
-          controller: 'MainViewController'
-        })
-          .state('main.config',   { url: '/config',   templateUrl: TEMPLATES + '/route/main/config.html'   })
-          .state('main.profile',  { url: '/profile',  templateUrl: TEMPLATES + '/route/main/profile.html'  })
-          .state('main.users',    { url: '/users',    templateUrl: TEMPLATES + '/route/main/users.html'    });
+        .state('home', {
+          url: '/home',
+          templateUrl: TEMPLATES + '/route/home/index.html',
+          controller: 'MainController'
+        });
     }
-  ])
+  ]);
 
-  .run(['$state', function($state) {
-    $state.transitionTo('main');
-  }]);
+module
+  .run([
+    '$state',
+    function($state) {
+      $state.transitionTo('home');
+    }
+  ]);

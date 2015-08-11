@@ -70,12 +70,25 @@ class Main(flask.Flask):
 
         import datetime
 
-        @self.route('/data')
-        def data():
+        @self.route('/config')
+        def config():
             return flask.jsonify({
                 'success': True,
                 'timestamp': datetime.datetime.utcnow()
             })
+
+        @self.route('/data')
+        def data():
+            result = {
+                'item': []
+            }
+            # TODO(burdon): Factor out data generator.
+            for name in ['Andrew', 'Billy', 'Catherine']:
+                result['item'].append({
+                    'title': name
+                })
+
+            return flask.jsonify(result)
 
         #
         # Injector.
