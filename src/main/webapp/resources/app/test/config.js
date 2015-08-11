@@ -7,27 +7,38 @@
 import angular from 'angular';
 
 // Global configuration.
-export var module = angular.module('app.config', []);
+var module = angular.module('app.config', []);
 
+// https://docs.angularjs.org/guide/providers
 module
   .constant('TEMPLATES', '/res/app/test/templates');
 
+// https://docs.angularjs.org/guide/services#creating-services
 module
-  .factory('config', [
+  .factory('app.config', [
     '$http',
     function($http) {
-      return new ConfigModel($http);
+      return new CachingRequestModel($http, '/data/config');
+    }
+  ]);
+
+module
+  .factory('app.users', [
+    '$http',
+    function($http) {
+      return new CachingRequestModel($http, '/data/users');
     }
   ]);
 
 /**
  * Config model.
  */
-class ConfigModel {
+class CachingRequestModel {
 
-  constructor($http) {
+  constructor($http, path) {
     console.assert($http);
     this.$http = $http;
+    this.path = path;
     this.cache = null;
   }
 
@@ -36,9 +47,9 @@ class ConfigModel {
 
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
     return new Promise(function(resolve, reject) {
-      console.log('Fetching...');
-      self.$http.get('/config').then(function(response) {
-        console.log('Status: ' + response.status);
+      console.debug('Fetching...');
+      self.$http.get(self.path).then(function(response) {
+        console.debug('Status: ' + response.status);
         self.cache = response.data;
         resolve();
       });

@@ -89,17 +89,17 @@ module
     '$scope',
     '$state',
     '$http',
-    'config',
-    function($scope, $state, $http, config) {
+    'app.config',
+    function($scope, $state, $http, app_config) {
 
       // XMLHttp
       // https://docs.angularjs.org/api/ng/service/$http
 
-      $scope.result = config.result();
+      $scope.result = app_config.result();
 
       $scope.update = function() {
-        config.update().then(function() {
-          $scope.result = config.result();
+        app_config.update().then(function() {
+          $scope.result = app_config.result();
           $scope.$digest();
         });
       };
@@ -142,19 +142,30 @@ module
     '$scope',
     '$state',
     '$http',
-    function($scope, $state, $http) {
+    'app.users',
+    function($scope, $state, $http, app_users) {
 
-      // TODO(burdon): Get XML list and style as list.
-
-      $scope.result = null;
+      $scope.result = app_users.result();
 
       $scope.update = function() {
-        $http.get('/data').
-          then(function(response) {
-            $scope.result = response.data;
-          });
+        app_users.update().then(function() {
+          $scope.result = app_users.result();
+          $scope.$digest();
+        });
       };
 
+    }
+  ]);
+
+// https://docs.angularjs.org/guide/directive
+module
+  .directive('userList', [
+    'TEMPLATES',
+    function(TEMPLATES) {
+      return {
+        restrict: 'E',
+        templateUrl: TEMPLATES + '/directive/user_list.html'
+      }
     }
   ]);
 

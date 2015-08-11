@@ -68,25 +68,21 @@ class Main(flask.Flask):
         def home():
             return flask.render_template('home.html')
 
-        import datetime
+        @self.route('/data/<path>')
+        def data(path):
+            result = {}
 
-        @self.route('/config')
-        def config():
-            return flask.jsonify({
-                'success': True,
-                'timestamp': datetime.datetime.utcnow()
-            })
+            if path == 'config':
+                import datetime
+                result['timestamp'] = datetime.datetime.utcnow()
 
-        @self.route('/data')
-        def data():
-            result = {
-                'item': []
-            }
-            # TODO(burdon): Factor out data generator.
-            for name in ['Andrew', 'Billy', 'Catherine']:
-                result['item'].append({
-                    'title': name
-                })
+            if path == 'users':
+                result['item'] = []
+                # TODO(burdon): Factor out data generator.
+                for name in ['Andrew', 'Billy', 'Catherine']:
+                    result['item'].append({
+                        'title': name
+                    })
 
             return flask.jsonify(result)
 
