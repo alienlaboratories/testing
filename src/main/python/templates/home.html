@@ -16,7 +16,6 @@
 
     <!-- Load JSPM resource. -->
     <link rel="stylesheet" href="/package:bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="/package:bootstrap/css/bootstrap-theme.css">
 
     <!-- App. -->
     <script type="application/javascript">
@@ -26,33 +25,10 @@
   </head>
   <body>
 
-    <!-- TODO(burdon): Replace with angular template (so doesn't show up before css -->
-    <header class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container-fluid">
-
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-
-          <a class="navbar-brand" href="/">Test</a>
-        </div>
-      </div>
-    </header>
-
-    <section>
-      <div class="container app-main">
-
-        <!-- App container. -->
-        <div id="app-root">
-          <section ui-view></section>
-        </div>
-
-      </div>
-    </section>
+    <!-- App container. -->
+    <div id="app-root">
+      <div ui-view></div>
+    </div>
 
   </body>
 </html>
