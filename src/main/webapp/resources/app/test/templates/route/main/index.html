@@ -30,7 +30,7 @@
     <div class="col-sm-3 col-md-2 sidebar">
       <ul class="nav nav-sidebar">
         <li ng-repeat="item in items" class="{{ getClass(item) }}">
-          <a data-toggle="tab" href="{{ getPath(item) }}">{{ item.title }}</a>
+          <a href="{{ getPath(item) }}">{{ item.title }}</a>
         </li>
       </ul>
     </div>
@@ -42,5 +42,5 @@
       <div ui-view></div>
     </div>
 
-  </div> <!-- row -->
+  </div>
 </div>

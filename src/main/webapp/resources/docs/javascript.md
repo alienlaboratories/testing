@@ -1,3 +1,5 @@
+<title>Docs: JavaScript</title>
+
 {% filter markdown %}
 JavaScript
 ===

@@ -9,11 +9,16 @@ import 'angular-bootstrap';
 
 import { Test } from '../../util';
 
-export var app_route_main = angular.module('app.route.main', [
+var module = angular.module('app.route.main', [
   'ui.bootstrap'
-])
+]);
 
-  .controller('MainViewController', ['$rootScope', '$scope', '$state', function($rootScope, $scope, $state) {
+module.controller('MainViewController', [
+  '$rootScope',
+  '$scope',
+  '$state',
+  '$modal',
+  function($rootScope, $scope, $state, $modal) {
 
     $scope.items = [
       { title: 'Config',  route: 'main.config',  active: false },
@@ -43,10 +48,42 @@ export var app_route_main = angular.module('app.route.main', [
       });
     });
 
-    // TODO(burdon): remove.
-    var test = new Test();
-    test.listen();
-    test.fireListeners(100);
-    test.listen(false);
-    test.fireListeners(200); // Should only be called once.
+    // Modal
+    // https://angular-ui.github.io/bootstrap/#/modal
+
+    $scope.confirm = function() {
+      var modal = $modal.open({
+        templateUrl: '/res/app/test/templates/modal/confirm.html',
+        controller: 'ConfirmModalCtrl',
+        resolve: {
+          message: function() { return 'Are you sure?'; }
+        }
+      });
+
+      modal.result.then(function(state) {
+        console.log('Stated: ' + state);
+        $scope.state = state;
+      }, function() {
+        console.info('Modal dismissed at: ' + new Date());
+      });
+    };
+
   }]);
+
+angular.module('app.route.main')
+  .controller('ConfirmModalCtrl', [
+    '$scope',
+    '$modalInstance',
+    'message',
+    function($scope, $modalInstance, message) {
+
+      $scope.message = message;
+
+      $scope.ok = function () {
+        $modalInstance.close(true);
+      };
+
+      $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+      };
+    }]);
