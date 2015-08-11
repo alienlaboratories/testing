@@ -17,8 +17,9 @@ module.controller('MainViewController', [
   '$rootScope',
   '$scope',
   '$state',
+  '$http',
   '$modal',
-  function($rootScope, $scope, $state, $modal) {
+  function($rootScope, $scope, $state, $http, $modal) {
 
     $scope.items = [
       { title: 'Config',  route: 'main.config',  active: false },
@@ -68,22 +69,34 @@ module.controller('MainViewController', [
       });
     };
 
+    // XMLHttp
+    // https://docs.angularjs.org/api/ng/service/$http
+    // TODO(burdon): Separate controllers for substates (different modules and link from main).
+
+    $scope.result = null;
+
+    $scope.update = function() {
+      $http.get('/data').
+        then(function(response) {
+          $scope.result = response.data;
+        });
+    };
+
   }]);
 
-angular.module('app.route.main')
-  .controller('ConfirmModalCtrl', [
-    '$scope',
-    '$modalInstance',
-    'message',
-    function($scope, $modalInstance, message) {
+module.controller('ConfirmModalCtrl', [
+  '$scope',
+  '$modalInstance',
+  'message',
+  function($scope, $modalInstance, message) {
 
-      $scope.message = message;
+    $scope.message = message;
 
-      $scope.ok = function () {
-        $modalInstance.close(true);
-      };
+    $scope.ok = function () {
+      $modalInstance.close(true);
+    };
 
-      $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
-      };
-    }]);
+    $scope.cancel = function () {
+      $modalInstance.dismiss('cancel');
+    };
+  }]);

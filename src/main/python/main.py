@@ -68,9 +68,14 @@ class Main(flask.Flask):
         def home():
             return flask.render_template('home.html')
 
+        import datetime
+
         @self.route('/data')
         def data():
-            return flask.jsonify({})
+            return flask.jsonify({
+                'success': True,
+                'timestamp': datetime.datetime.utcnow()
+            })
 
         #
         # Injector.

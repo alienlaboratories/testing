@@ -32,7 +32,7 @@ export var module = angular.module('app.main', [
           templateUrl: TEMPLATES + '/route/main/index.html',
           controller: 'MainViewController'
         })
-          .state('main.config',   { url: '/config',   templateUrl: '/data'   })
+          .state('main.config',   { url: '/config',   templateUrl: TEMPLATES + '/route/main/config.html'   })
           .state('main.profile',  { url: '/profile',  templateUrl: TEMPLATES + '/route/main/profile.html'  })
           .state('main.users',    { url: '/users',    templateUrl: TEMPLATES + '/route/main/users.html'    });
     }
