@@ -1,10 +1,12 @@
 #
 # Copyright 2015 Alien Laboratories, Inc.
 #
+import json
 
 import flask
 import logging
 from flask.ext.injector import FlaskInjector
+import jinja2
 
 from nx_util.systemjs import SystemJSResolver
 
@@ -68,6 +70,7 @@ class Main(flask.Flask):
         def home():
             return flask.render_template('home.html')
 
+        # TODO(burdon): Factor out test.
         @self.route('/data/<path>')
         def data(path):
             result = {}
@@ -77,12 +80,11 @@ class Main(flask.Flask):
                 result['timestamp'] = datetime.datetime.utcnow()
 
             if path == 'users':
-                result['item'] = []
-                # TODO(burdon): Factor out data generator.
-                for name in ['Andrew', 'Billy', 'Catherine']:
-                    result['item'].append({
-                        'title': name
-                    })
+                import os
+                with self.open_resource(os.path.join('../webapp/resources/data', 'users.json')) as f:
+                    contents = f.read()
+
+                result = json.loads(contents)
 
             return flask.jsonify(result)
 

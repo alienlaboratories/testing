@@ -1,0 +1,18 @@
+<h2>Users</h2>
+
+<div>
+  <button type="button" class="btn btn-default" ng-click="update()">Update</button>
+</div>
+
+<br/>
+<div>
+  <!-- http://stackoverflow.com/questions/19415394/with-ng-bind-html-unsafe-removed-how-do-i-inject-html -->
+  <input type="text" class="form-control"
+         ng-model="selected" typeahead="item.title for item in result.item | filter:$viewValue | limitTo:8">
+</div>
+
+<hr/>
+
+<div>
+  <user-list></user-list>
+</div>

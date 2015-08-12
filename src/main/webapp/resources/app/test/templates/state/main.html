@@ -29,8 +29,8 @@
       -->
     <div class="col-sm-3 col-md-2 sidebar">
       <ul class="nav nav-sidebar">
-        <li ng-repeat="item in items" class="{{ getClass(item) }}">
-          <a href="{{ getPath(item) }}">{{ item.title }}</a>
+        <li ng-repeat="item in items" ng-click="go(item.route)" class="{{ getClass(item) }}">
+          <a>{{ item.title }}</a>
         </li>
       </ul>
     </div>
@@ -39,7 +39,7 @@
       Main content.
       -->
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-      <div ui-view></div>
+      <ui-view/>
     </div>
 
   </div>

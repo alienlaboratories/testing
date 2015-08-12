@@ -11,7 +11,7 @@ var module = angular.module('app.config', []);
 
 // https://docs.angularjs.org/guide/providers
 module
-  .constant('TEMPLATES', '/res/app/test/templates');
+  .constant('TEMPLATES', '/res/app/test/templates/');
 
 // https://docs.angularjs.org/guide/services#creating-services
 module
@@ -39,7 +39,12 @@ class CachingRequestModel {
     console.assert($http);
     this.$http = $http;
     this.path = path;
+
     this.cache = null;
+  }
+
+  result() {
+    return this.cache;
   }
 
   update() {
@@ -47,16 +52,12 @@ class CachingRequestModel {
 
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
     return new Promise(function(resolve, reject) {
-      console.debug('Fetching...');
+      console.debug(`Fetching: ${self.path}`);
       self.$http.get(self.path).then(function(response) {
-        console.debug('Status: ' + response.status);
+        console.debug(`Status: ${response.status}`);
         self.cache = response.data;
         resolve();
       });
     });
-  }
-
-  result() {
-    return this.cache;
   }
 }
